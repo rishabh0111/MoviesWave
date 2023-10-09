@@ -49,7 +49,7 @@ const MovieInformation = () => {
 
     return (
         <Grid container className={classes.containerSpaceAround}>
-            <Grid item sm={12} lg={4}>
+            <Grid item sm={12} lg={4} style={{display: 'flex', alignItems: 'flex-start', marginBottom: '30px',}}>
                 <img
                     className={classes.poster}
                     src={`https://image.tmdb.org/t/p/w500/${data?.poster_path}`}
@@ -71,7 +71,7 @@ const MovieInformation = () => {
                         </Typography>
                     </Box>
                     <Typography variant='h6' align='center' gutterBottom>
-                        {data?.runtime}min {data?.spoken_languages.length > 0 ? ` / ${data?.spoken_languages[0].name}` : '' }
+                        {data?.runtime}min | Language: {data?.spoken_languages[0].name}
                     </Typography>
                 </Grid>
                 <Grid item className={classes.genresContainer}>
@@ -109,14 +109,14 @@ const MovieInformation = () => {
                 <Grid item container style={{marginTop: '2rem'}}>
                     <div className={classes.buttonsContainer}>
                         <Grid item xs={12} sm={6} className={classes.buttonsContainer}>
-                            <ButtonGroup size="large" variant='outlined'>
+                            <ButtonGroup size="medium" variant='outlined'>
                                 <Button target='_blank' rel='noopener noreferrer' href={data?.homepage} endIcon={<Language />}>Website</Button>
                                 <Button target='_blank' rel='noopener noreferrer' href={`https://www.imdb.com/title/${data?.imdb_id}`} endIcon={<MovieIcon />}>IMDB</Button>
                                 <Button onClick={() => setOpen(true)} href="#" endIcon={<Theaters />}>Trailer</Button>
                             </ButtonGroup>
                         </Grid>
                         <Grid item xs={12} sm={6} className={classes.buttonsContainer}>
-                            <ButtonGroup size="large" variant='outlined'>
+                            <ButtonGroup size="medium" variant='outlined'>
                                 <Button onClick={addToFavorites} endIcon={isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />}>
                                     {isMovieFavorited ? 'Unfavorite' : 'Favorite'}
                                 </Button>
