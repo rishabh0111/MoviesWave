@@ -26,7 +26,8 @@ const Search = () => {
             onKeyUp={handleKeyPress}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            variant="standard"
+            variant="outlined"
+            placeholder='Search Movies'
             InputProps={{
                 className: classes.input,
                 startAdornment: (
