@@ -15,7 +15,7 @@ export const fetchToken = async () => {
         
         if(data.success) {
             localStorage.setItem('request_token', token);
-            window.location.href = `https://www.themoviedb.org/authenticate/${token}?redirect_to=https://movieswave.netlify.app/approved`
+            window.location.href = `https://www.themoviedb.org/authenticate/${token}?redirect_to=${window.location.origin}/approved`
         }
     } catch (error) {
         console.log("Sorry, token could not be created");
