@@ -14,13 +14,6 @@ const categories = [
     { label: 'Upcoming', value: 'upcoming'},
 ]
 
-const demoCategories = [
-    { label: 'Comedy', value: 'comedy'},
-    { label: 'Action', value: 'action'},
-    { label: 'Horror', value: 'horror'},
-    { label: 'Animation', value: 'animation'}
-]
-
 const redLogo = 'https://fontmeme.com/permalink/230919/91bd165037c8f80225e3c2165ca4a11a.png';
 const blueLogo = 'https://fontmeme.com/permalink/231008/51e5b9952fd796003fef420c6dececd2.png';
 
@@ -30,6 +23,11 @@ const Sidebar = ({setMobileOpen}) => {
     const classes = useStyles();
     const {data, isFetching} = useGetGenresQuery();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+      setMobileOpen(false);
+    }, [genreIdOrCategoryName])
+    
 
     return (
         <>
@@ -47,7 +45,7 @@ const Sidebar = ({setMobileOpen}) => {
                     <Link key={value} className={classes.links} to="/">
                         <ListItemButton onClick={() => dispatch(selectGenreOrCategory(value))}>
                             <ListItemIcon>
-                                <img src={genreIcons[label.toLowerCase()]} className={classes.genereImages} height={30}/>
+                                <img src={genreIcons[label.toLowerCase()]} className={classes.genreImage} height={30}/>
                             </ListItemIcon>
                             <ListItemText primary={label} />
                         </ListItemButton>
@@ -65,7 +63,7 @@ const Sidebar = ({setMobileOpen}) => {
                     <Link key={name} className={classes.links} to="/">
                         <ListItemButton onClick={() => dispatch(selectGenreOrCategory(id))}>
                             <ListItemIcon>
-                                <img src={genreIcons[name.toLowerCase()]} className={classes.genereImages} height={30}/>
+                                <img src={genreIcons[name.toLowerCase()]} className={classes.genreImage} height={30}/>
                             </ListItemIcon>
                             <ListItemText primary={name} />
                         </ListItemButton>

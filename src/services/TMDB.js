@@ -1,6 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
-// console.log(import.meta.VITE_TMDB_KEY);
 const tmdbApiKey = import.meta.env.VITE_TMDB_KEY;
 
 export const tmdbApi = createApi({
@@ -38,6 +37,10 @@ export const tmdbApi = createApi({
             query: (id) => `/movie/${id}?append_to_response=videos,credits&api_key=${tmdbApiKey}`
         }),
 
+        getList: builder.query({
+            query: ({ listName, accountId, sessionId, page }) => `/account/${accountId}/${listName}?session_id=${sessionId}&page=${page}&api_key=${tmdbApiKey}`
+        }),
+
         // Get user specific lists
         getRecommendations: builder.query({
             query: ({movie_id, list}) => `/movie/${movie_id}/${list}?api_key=${tmdbApiKey}`,
@@ -57,6 +60,7 @@ export const {
     useGetGenresQuery,
     useGetMoviesQuery,
     useGetMovieQuery,
+    useGetListQuery,
     useGetRecommendationsQuery,
     useGetActorsDetailsQuery,
     useGetMoviesByActorIdQuery,

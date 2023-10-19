@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { AppBar, IconButton, Toolbar, Drawer, Button, Avatar, useMediaQuery } from '@mui/material';
-import { Menu, AccountCircle, Brightness4, Brightness7, MovieCreationSharp } from '@mui/icons-material';
+import { Menu, AccountCircle, Brightness4, Brightness7 } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import { useTheme } from '@emotion/react';
+import { useTheme } from '@mui/styles';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setUser, userSelector } from '../../features/auth';
-import {Search, Sidebar} from '..';
-import { fetchToken, createSessionId, moviesApi } from '../../utils';
-
 import useStyles from './styles';
+import { ColorModeContext } from '../../utils/ToggleColorMode';
+import {Search, Sidebar} from '..';
+import { setUser, userSelector } from '../../features/auth';
+import { fetchToken, createSessionId, moviesApi } from '../../utils/index';
 
 const NavBar = () => {
     const { isAuthenticated, user } = useSelector(userSelector);
@@ -18,6 +18,8 @@ const NavBar = () => {
     const isMobile = useMediaQuery('(max-width: 600px)');
     const theme = useTheme();
     const dispatch = useDispatch();
+
+    const colorMode = useContext(ColorModeContext);
 
     const token = localStorage.getItem('request_token');
     const sessionIdFromLocalStorage = localStorage.getItem('session_id');
@@ -53,7 +55,7 @@ const NavBar = () => {
                             <Menu />
                         </IconButton>
                     )}
-                    <IconButton color="inherit" sx={{ml: 1}} onClick={() => {}}>
+                    <IconButton color="inherit" sx={{ml: 1}} onClick={colorMode.toggleColorMode}>
                         {theme.palette.mode === 'dark' ? <Brightness7/> : <Brightness4/>}
                     </IconButton>
                     {!isMobile && <Search />}
@@ -73,8 +75,8 @@ const NavBar = () => {
                                     {!isMobile && <>My Movies &nbsp;</>}
                                     <Avatar
                                         style={{width: 30, height: 30 }}
-                                        alt="Profile"
-                                        src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+                                        alt={user.username}
+                                        src={`https://www.themoviedb.org/t/p/w64_and_h64_face${user?.avatar?.tmdb?.avatar_path}`}
                                     />
                                 </Button>
                         )}
